@@ -1,3 +1,9 @@
+/**
+ * Crispin Klusmann , ifa 92 , 13.02.2020
+ *Tag des Jahres, liest Datum ein und gibt aus um welchen Tag des Jahres es sich handelt
+ *Source-Code of the Header file
+ **/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,8 +28,8 @@ int day_of_the_year(int day, int month, int year)
 
 
 /*
- *Die Funktion überprüft, ob ein gegebenes Jahr nach den Regeln des gregorianischen Kalender ein Schaltjahr
-   ist. Bei Jahreszahlen vor dem Jahr 1582 (und groesser als 2400 wird ein Fehler zurückgegeben.
+ *Die Funktion Ã¼berprÃ¼ft, ob ein gegebenes Jahr nach den Regeln des gregorianischen Kalender ein Schaltjahr
+   ist. Bei Jahreszahlen vor dem Jahr 1582 (und groesser als 2400 wird ein Fehler zurÃ¼ckgegeben.
  *
  * input year as Integer
  * return 0 (no leapyear) 1 (leapyear) -1 (not a correct year) as int
@@ -46,8 +52,8 @@ int is_leapyear(int year)
 
 
 /*
-Die Funktion bestimmt für einen gegebenen Monat eines gegebenen Jahres, wie viele Tage der Monat hat. Der
-Wert des Monats muss zwischen 1 und 12 liegen. Schaltjahre werden berücksichtigt.
+Die Funktion bestimmt fÃ¼r einen gegebenen Monat eines gegebenen Jahres, wie viele Tage der Monat hat. Der
+Wert des Monats muss zwischen 1 und 12 liegen. Schaltjahre werden berÃ¼cksichtigt.
 * input month as Integer year as Integer
 * return 28-31 (days of the month) or -1 invalid input as Integer
 */
@@ -68,7 +74,7 @@ int get_days_for_month(int month, int year) {
 }
 
 /*
-Die Funktion überprüft, ob ein eingegebenes Datum gültig ist. Daten vor dem 1.1.1582 sind ungültig, genauso
+Die Funktion Ã¼berprÃ¼ft, ob ein eingegebenes Datum gÃ¼ltig ist. Daten vor dem 1.1.1582 sind ungÃ¼ltig, genauso
 wie alle Daten nach dem 31.12.2400.
 * input day, month, year as integer
 * return 1 (correct date) or 0 (invalid date)
@@ -91,7 +97,7 @@ int exists_date(int day, int month, int year) {
 
 
 /**
-    Gibt den Wochentag für den gewählten Tag wieder.
+    Gibt den Wochentag fÃ¼r den gewÃ¤hlten Tag wieder.
     0 = Sonntag, 1 = Montag, ... 6 = Samstag
     berechnet aus dem Tag des Jahresanfangs
 **/
@@ -114,7 +120,7 @@ int _week_day_beginning(int year)
 
 
 /**
-    Gibt den gewählten Wochentag im Format von get_weekday() aus.
+    Gibt den gewÃ¤hlten Wochentag im Format von get_weekday() aus.
 **/
 void _print_weekday(int day)
 {
@@ -149,8 +155,8 @@ void _print_weekday(int day)
 }
 
 /**
-    Gibt für das gewählte Datum die Kalenderwoche aus.
-    Wenn diese nicht ins gwählte Jahr fällt so gebe man 52 / 53 *s.u. zurück.
+    Gibt fÃ¼r das gewÃ¤hlte Datum die Kalenderwoche aus.
+    Wenn diese nicht ins gwÃ¤hlte Jahr fÃ¤llt so gebe man 52 / 53 *s.u. zurÃ¼ck.
 **/
 int get_calender_week(int day, int month, int year)
 {
