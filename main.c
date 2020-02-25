@@ -15,23 +15,8 @@
 */
 int main()
 {
-    int iDay = 0;
-    int iMonth = 0;
-    int iYear = 0;
-    // Read in day month and year // the day Array is neccassary to check weather it is a correct day in
-    do {
-        // Read in Day, Month and year
-        printf("Please input day: ");
-        scanf_s("%d", &iDay);
-        fflush(stdin);
-        printf("Please input Month: ");
-        scanf_s("%d", &iMonth);
-        fflush(stdin);
-        printf("Please input Year: ");
-        scanf_s("%d", &iYear);
-        fflush(stdin);
-        // day exists?
-    } while (!exists_date(Tag, Monat, Jahr));
+    int day,month,year;
+    input_date(&day, &month, &year);
 
     printf("Day of the Year: %i\n", day_of_the_year(Tag, Monat, Jahr));
     printf("Weekday:");
