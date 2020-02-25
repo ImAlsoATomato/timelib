@@ -1,6 +1,6 @@
 /**
- * Crispin Klusmann , ifa 92 , 13.02.2020
- *Tag des Jahres, liest Datum ein und gibt aus um welchen Tag des Jahres es sich handelt
+ * Crispin Klusmann , ifa 92 , 25.02.2020
+ *Project: Day of the Year
  *Source-Code of the Header file
  **/
 
@@ -20,7 +20,7 @@ int day_of_the_year(int day, int month, int year)
     for (i = 1; i < month; i++) {
         tagsum += get_days_for_month(i, year);
     }
-    // addiere Tage des aktuellen Monats auf
+    // add Days of the actual month
     tagsum += day;
 
     return tagsum;
@@ -28,9 +28,8 @@ int day_of_the_year(int day, int month, int year)
 
 
 /*
- *Die Funktion überprüft, ob ein gegebenes Jahr nach den Regeln des gregorianischen Kalender ein Schaltjahr
-   ist. Bei Jahreszahlen vor dem Jahr 1582 (und groesser als 2400 wird ein Fehler zurückgegeben.
- *
+ * The function cheacks, weather an input Year is a leap year (in Gregorian Calender). Returns -1 when, year is smaller than
+ * 1582 or greater than 2400
  * input year as Integer
  * return 0 (no leapyear) 1 (leapyear) -1 (not a correct year) as int
  */
@@ -52,8 +51,7 @@ int is_leapyear(int year)
 
 
 /*
-Die Funktion bestimmt für einen gegebenen Monat eines gegebenen Jahres, wie viele Tage der Monat hat. Der
-Wert des Monats muss zwischen 1 und 12 liegen. Schaltjahre werden berücksichtigt.
+* Calculates for a given month and year ( cause leapyear) the maximum days the month has. Month needs to be between 1-12.
 * input month as Integer year as Integer
 * return 28-31 (days of the month) or -1 invalid input as Integer
 */
@@ -74,8 +72,7 @@ int get_days_for_month(int month, int year) {
 }
 
 /*
-Die Funktion überprüft, ob ein eingegebenes Datum gültig ist. Daten vor dem 1.1.1582 sind ungültig, genauso
-wie alle Daten nach dem 31.12.2400.
+Cheaks weather a given date is valid, a date before 1582 or after 2400 is invalid
 * input day, month, year as integer
 * return 1 (correct date) or 0 (invalid date)
 */
@@ -97,9 +94,10 @@ int exists_date(int day, int month, int year) {
 
 
 /**
-    Gibt den Wochentag für den gewählten Tag wieder.
-    0 = Sonntag, 1 = Montag, ... 6 = Samstag
-    berechnet aus dem Tag des Jahresanfangs
+ * Returns for a given day the Weekday.
+  Calculation from the day of the 01.01 of the given year
+  input: day, month and year as integer
+  returns  0 = Sunday, 1 = Monday, ... 6 = Saturday
 **/
 int get_weekday(int day, int month, int year)
 {
@@ -109,9 +107,10 @@ int get_weekday(int day, int month, int year)
 
 
 /**
-    Die Funktion gibt den Wochentag vom Jahresanfang wieder
-    0 = Sonntag, 1 = Montag, 2 = Dienstag, ... 6 = Samstag
-    Berechnet nach der Gausschen Jahresanfangsformel, funktioniert nur fuer 4stellige Datumsziffern
+* Calculates the Weekday of the 01.01.year
+  input year 
+  returns  0 = Sunday, 1 = Monday, ... 6 = Saturday
+  Calculation from the  "Gausschen Wochentagsformel", only works for years with 4 digits
 **/
 int _week_day_beginning(int year)
 {
@@ -120,7 +119,8 @@ int _week_day_beginning(int year)
 
 
 /**
-    Gibt den gewählten Wochentag im Format von get_weekday() aus.
+    prints the current weekday for a given day
+    input: day as int
 **/
 void _print_weekday(int day)
 {
@@ -130,33 +130,34 @@ void _print_weekday(int day)
         printf("INVALID DAY");
         break;
     case 0:
-        printf("Sonntag");
+        printf("Sunday");
         break;
     case 1:
-        printf("Montag");
+        printf("Monday");
         break;
     case 2:
-        printf("Dienstag");
+        printf("Tuesday");
         break;
     case 3:
-        printf("Mittwoch");
+        printf("Wednesday");
         break;
     case 4:
-        printf("Donnerstag");
+        printf("Thursday");
         break;
     case 5:
-        printf("Freitag");
+        printf("Friday");
         break;
     case 6:
-        printf("Samstag");
+        printf("Saturday");
         break;
 
     }
 }
 
 /**
-    Gibt für das gewählte Datum die Kalenderwoche aus.
-    Wenn diese nicht ins gwählte Jahr fällt so gebe man 52 / 53 *s.u. zurück.
+    For a given date, calculate the Calender Week
+    input day, month and year as integer 
+    return calender week as int between 1 and 53 * (see below)   
 **/
 int get_calender_week(int day, int month, int year)
 {
@@ -170,9 +171,9 @@ int get_calender_week(int day, int month, int year)
     }
       
     if (calenderWeek == 0) {
-        // when the previous year starts with Donnerstag or Mittwoch (bei Schaltjahren) then
+        // when the previous year starts with Thursday or Wednesday (bei Schaltjahren) then
         // Week has 53 KW. Case year is 1582 then it is hard coded cause an error occurs while
-        // trying to calculate fpr a year before 1582
+        // trying to calculate for a year before 1582
         if (year == 1582) {
             return 53;
         }
