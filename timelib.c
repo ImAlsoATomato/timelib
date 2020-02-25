@@ -46,7 +46,26 @@ int is_leapyear(int year)
     return 0;
 }
 
-
+/* 
+* read in a valid date
+* input pointer for day, month and year
+*/
+void input_date(int *day, int *month, int *year)
+{
+    do
+    {
+        printf("Please input Day: ");
+        scanf("%i", day);
+        fflush(stdin);
+        printf("Please input Month: ");
+        scanf("%i", month);
+        fflush(stdin);
+        printf("Please input Year: ");
+        scanf("%i", year);
+        fflush(stdin);
+    }
+    while (exists_date(*day, *month, *year) != 1);
+}
 
 
 
