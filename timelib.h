@@ -1,7 +1,6 @@
 /**
- * Crispin Klusmann , ifa 92 , 13.02.2020
- *Tag des Jahres, liest Datum ein und gibt aus um welchen Tag des Jahres es sich handelt
- * Header-File
+ * Crispin Klusmann , ifa 92 , 25.02.2020
+ * Header-File of the time library
  **/
 
 #pragma once
@@ -16,4 +15,5 @@ int get_weekday(int day, int month, int year);
 int exists_date(int day, int month, int year);
 int get_days_for_month(int month, int year);
 int get_weekday(int day, int month, int year);
+
 #endif
