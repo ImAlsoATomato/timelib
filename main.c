@@ -15,12 +15,12 @@
 */
 int main()
 {
-    int day,month,year;
+    int day, month, year;
     input_date(&day, &month, &year);
 
-    printf("Day of the Year: %i\n", day_of_the_year(Tag, Monat, Jahr));
+    printf("Day of the Year: %i\n", day_of_the_year(day, month, year));
     printf("Weekday:");
-    _print_weekday(get_weekday(Tag, Monat, Jahr));
-    printf("\n Calenderweek of the Day: %i \n", get_calender_week(Tag, Monat, Jahr));
+    _print_weekday(get_weekday(day, month, year));
+    printf("\n Calenderweek of the Day: %i \n", get_calender_week(day, month, year));
     return 0;
 }
