@@ -1,27 +1,28 @@
 /**
- * Crispin Klusmann , ifa 92 , 25.02.2020
+ * Crispin Klusmann , ifa 92 , 02.03.2020
  *Project: Day of the Year
  *Source-Code of the Header file
  **/
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "timelib.h"
 
 /**
  * Calculates the day of the Year
  * input actual day, month and year
  * output day as int from 1 to 366
  **/
-int day_of_the_year(struct date)
+int day_of_the_year(struct date idate)
 {
     int tagsum = 0;
     // add days of preMonth
     int i = 1;
-    for (i = 1; i < date.month; i++) {
-        tagsum += get_days_for_month(i, date.year);
+    for (i = 1; i < idate.month; i++) {
+        tagsum += get_days_for_month(i, idate.year);
     }
     // add Days of the actual month
-    tagsum += date.day;
+    tagsum += idate.day;
 
     return tagsum;
 }
@@ -46,7 +47,7 @@ int is_leapyear(int year)
     return 0;
 }
 
-/* 
+/*
 * read in a valid date
 * input pointer for day, month and year
 */
@@ -66,6 +67,7 @@ struct date input_date()
         fflush(stdin);
     }
     while (exists_date(datefromUser) != 1);
+    return datefromUser;
 }
 
 
@@ -121,14 +123,14 @@ int exists_date(struct date idate) {
 **/
 int get_weekday(struct date idate)
 {
-    int current = day_of_the_year(struct date idate) - 1;
+    int current = day_of_the_year(idate) - 1;
     return (current + _week_day_beginning(idate.year)) % 7;
 }
 
 
 /**
 * Calculates the Weekday of the 01.01.year
-  input year 
+  input year
   returns  0 = Sunday, 1 = Monday, ... 6 = Saturday
   Calculation from the  "Gausschen Wochentagsformel", only works for years with 4 digits
 **/
@@ -176,20 +178,21 @@ void _print_weekday(int day)
 
 /**
     For a given date, calculate the Calender Week
-    input day, month and year as integer 
-    return calender week as int between 1 and 53 * (see below)   
+    input day, month and year as integer
+    return calender week as int between 1 and 53 * (see below)
 **/
 int get_calender_week(struct date idate)
 {
-    int currentDays = day_of_the_year(struct date idate);
-    int actualDay = get_weekday(struct date idate);
+    int currentDays = day_of_the_year(idate);
+    int actualDay = get_weekday(idate);
     int startWeekDay = _week_day_beginning(idate.year);
     int MondayWhenWeekOneBegins = (startWeekDay <= 4 && startWeekDay >0 ) ? (2-startWeekDay) : (startWeekDay==0)? 2: (7-startWeekDay+2);
     int calenderWeek = 0;
-    for (int i = MondayWhenWeekOneBegins; i <= currentDays; i += 7) {
+    int i;
+    for ( i = MondayWhenWeekOneBegins; i <= currentDays; i += 7) {
         calenderWeek++;
     }
-      
+
     if (calenderWeek == 0) {
         // when the previous year starts with Thursday or Wednesday (bei Schaltjahren) then
         // Week has 53 KW. Case year is 1582 then it is hard coded cause an error occurs while
