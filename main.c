@@ -1,6 +1,6 @@
 
 /**
- * Crispin Klusmann , ifa 92 , 25.02.2020
+ * Crispin Klusmann , ifa 92 , 02.03.2020
  * Day of the year, read in Date from User and return the Day of the Year and the Weekday, calender week
  **/
 
@@ -15,7 +15,7 @@
 */
 int main()
 {
-    
+
     struct date idate = input_date();
 
     printf("Day of the Year: %i\n", day_of_the_year(idate));
