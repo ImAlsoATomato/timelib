@@ -12,16 +12,16 @@
  * input actual day, month and year
  * output day as int from 1 to 366
  **/
-int day_of_the_year(int day, int month, int year)
+int day_of_the_year(struct date)
 {
     int tagsum = 0;
     // add days of preMonth
     int i = 1;
-    for (i = 1; i < month; i++) {
-        tagsum += get_days_for_month(i, year);
+    for (i = 1; i < date.month; i++) {
+        tagsum += get_days_for_month(i, date.year);
     }
     // add Days of the actual month
-    tagsum += day;
+    tagsum += date.day;
 
     return tagsum;
 }
@@ -50,21 +50,22 @@ int is_leapyear(int year)
 * read in a valid date
 * input pointer for day, month and year
 */
-void input_date(int *day, int *month, int *year)
+struct date input_date()
 {
+    struct date datefromUser;
     do
     {
         printf("Please input Day: ");
-        scanf("%i", day);
+        scanf("%i", &datefromUser.day);
         fflush(stdin);
         printf("Please input Month: ");
-        scanf("%i", month);
+        scanf("%i", &datefromUser.month);
         fflush(stdin);
         printf("Please input Year: ");
-        scanf("%i", year);
+        scanf("%i", &datefromUser.year);
         fflush(stdin);
     }
-    while (exists_date(*day, *month, *year) != 1);
+    while (exists_date(datefromUser) != 1);
 }
 
 
@@ -95,13 +96,13 @@ Cheaks weather a given date is valid, a date before 1582 or after 2400 is invali
 * input day, month, year as integer
 * return 1 (correct date) or 0 (invalid date)
 */
-int exists_date(int day, int month, int year) {
+int exists_date(struct date idate) {
     //invalid month or year
-    if (get_days_for_month(month, year) == -1) {
+    if (get_days_for_month(idate.month, idate.year) == -1) {
         return 0;
     }
     // valid month year and day
-    if (day <= get_days_for_month(month, year) && day >= 1) {
+    if (idate.day <= get_days_for_month(idate.month, idate.year) && idate.day >= 1) {
         return 1;
     }
     // else invalid
@@ -118,10 +119,10 @@ int exists_date(int day, int month, int year) {
   input: day, month and year as integer
   returns  0 = Sunday, 1 = Monday, ... 6 = Saturday
 **/
-int get_weekday(int day, int month, int year)
+int get_weekday(struct date idate)
 {
-    int current = day_of_the_year(day, month, year) - 1;
-    return (current + _week_day_beginning(year)) % 7;
+    int current = day_of_the_year(struct date idate) - 1;
+    return (current + _week_day_beginning(idate.year)) % 7;
 }
 
 
@@ -178,11 +179,11 @@ void _print_weekday(int day)
     input day, month and year as integer 
     return calender week as int between 1 and 53 * (see below)   
 **/
-int get_calender_week(int day, int month, int year)
+int get_calender_week(struct date idate)
 {
-    int currentDays = day_of_the_year(day, month, year);
-    int actualDay = get_weekday(day, month, year);
-    int startWeekDay = _week_day_beginning(year);
+    int currentDays = day_of_the_year(struct date idate);
+    int actualDay = get_weekday(struct date idate);
+    int startWeekDay = _week_day_beginning(idate.year);
     int MondayWhenWeekOneBegins = (startWeekDay <= 4 && startWeekDay >0 ) ? (2-startWeekDay) : (startWeekDay==0)? 2: (7-startWeekDay+2);
     int calenderWeek = 0;
     for (int i = MondayWhenWeekOneBegins; i <= currentDays; i += 7) {
@@ -193,10 +194,10 @@ int get_calender_week(int day, int month, int year)
         // when the previous year starts with Thursday or Wednesday (bei Schaltjahren) then
         // Week has 53 KW. Case year is 1582 then it is hard coded cause an error occurs while
         // trying to calculate for a year before 1582
-        if (year == 1582) {
+        if (idate.year == 1582) {
             return 53;
         }
-        if (_week_day_beginning(year - 1) + is_leapyear(year - 1) == 4) {
+        if (_week_day_beginning(idate.year - 1) + is_leapyear(idate.year - 1) == 4) {
             return 53;
         }
         return 52;
